@@ -40,3 +40,27 @@ test("does not ship the starter preview metadata or placeholder dependency", asy
   assert.doesNotMatch(layout, /Starter Project|codex-preview|_sites-preview/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 });
+
+test("uses the portable Next launcher when Windows native bindings are unavailable", async () => {
+  const [packageJson, launcher] = await Promise.all([
+    readFile(new URL("package.json", root), "utf8"),
+    readFile(new URL("scripts/next-wasm.mjs", root), "utf8").catch(() => ""),
+  ]);
+  const scripts = JSON.parse(packageJson).scripts;
+
+  assert.equal(scripts.dev, "node scripts/next-wasm.mjs dev");
+  assert.equal(scripts.start, "node scripts/next-wasm.mjs start");
+  assert.match(launcher, /NEXT_TEST_WASM_DIR/);
+  assert.match(launcher, /--webpack/);
+});
+
+test("keeps font loading local so production builds do not require Google Fonts", async () => {
+  const [layout, styles] = await Promise.all([
+    readFile(new URL("app/layout.tsx", root), "utf8"),
+    readFile(new URL("app/globals.css", root), "utf8"),
+  ]);
+
+  assert.doesNotMatch(layout, /next\/font\/google/);
+  assert.match(styles, /--font-geist-sans:\s*"Geist"/);
+  assert.match(styles, /--font-geist-mono:\s*"Geist Mono"/);
+});

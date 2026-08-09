@@ -1,14 +1,14 @@
 {
-  "name": "site-creator-vinext-starter",
+  "name": "reelradar-dashboard",
   "version": "0.1.0",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "vinext dev",
-    "build": "vinext build",
-    "start": "vinext start",
+    "dev": "node scripts/next-wasm.mjs dev",
+    "build": "node scripts/next-wasm.mjs build",
+    "start": "node scripts/next-wasm.mjs start",
     "typecheck": "tsc --noEmit",
     "test": "npm run typecheck && node --test tests/metrics.test.mjs tests/normalize.test.mjs tests/rendered-html.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.37.1",
+    "@next/swc-wasm-nodejs": "^16.2.6",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",

@@ -26,7 +26,7 @@ npm test
 npm run build
 ```
 
-`npm run build` uses the bundled Sites/vinext build path. The source checks and tests do not require live API credentials.
+`npm run build` uses Next.js with Webpack and the local WASM compiler fallback, so it does not depend on native Windows addons or a network font download. The source checks and tests do not require live API credentials.
 
 ## Environment variables
 
@@ -50,6 +50,7 @@ When `SOCIALCRAWL_API_KEY` is not configured or the upstream request fails, the 
 - `lib/socialcrawl.ts`, `lib/normalize.ts`, `lib/metrics.ts` — data boundary and scoring.
 - `lib/fixtures.ts`, `lib/templates.ts` — labeled demo dataset and deterministic ethical remix output.
 - `app/reelradar-app.tsx` — shared client orchestration and URL-linked state.
+- `scripts/next-wasm.mjs` — cross-platform Next.js launcher for hosts that cannot load native bindings.
 - `app/components/` — shell, cards, feed, drawer, content plan, and script generator.
 
 ## Known limitations
@@ -57,4 +58,4 @@ When `SOCIALCRAWL_API_KEY` is not configured or the upstream request fails, the 
 - The checked-in fallback data is intentionally synthetic and clearly labeled for camera-ready UI review.
 - Direct video playback appears only when SocialCrawl returns a playable media URL; otherwise the card uses an honest thumbnail placeholder and an Instagram link.
 - Transcript generation is deterministic when no external AI provider is configured; it preserves structure and does not paraphrase source wording.
-- In this Codex Windows runtime, `npm run build` is blocked before app compilation when Rolldown's native binding is rejected by the host (`ERR_DLOPEN_FAILED`). The source checks and live adapter validation pass; rerun the build on a standard Node/Windows installation with the native binding available.
+- The app uses a local Geist-first system font stack instead of fetching Google Fonts during builds, so offline builds remain supported.
