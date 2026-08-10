@@ -76,7 +76,7 @@ export function ReelDrawer({
         <div className="drawer-header"><span className="eyebrow">Reel #{reel.rank ?? "—"} of {competitor.trackedReelsCount || "—"}</span><div className="drawer-header-actions"><button className="icon-button" onClick={() => onMove("prev")} aria-label="Previous reel"><ChevronLeft size={16} /></button><button className="icon-button" onClick={() => onMove("next")} aria-label="Next reel"><ChevronRight size={16} /></button><button className="icon-button" onClick={onClose} aria-label="Close details"><X size={17} /></button></div></div>
         <div className="drawer-scroll">
           <section className="drawer-preview">
-            <div className="drawer-thumb">{reel.mediaUrl ? <video src={reel.mediaUrl} controls playsInline /> : <PlaceholderThumbnail tone={reel.thumbnailTone} label={reel.hook ?? "Reel preview unavailable"} />}</div>
+            <div className="drawer-thumb">{reel.mediaUrl ? <video src={reel.mediaUrl} controls playsInline /> : <PlaceholderThumbnail imageUrl={reel.thumbnailUrl} tone={reel.thumbnailTone} label={reel.hook ?? "Reel preview unavailable"} />}</div>
             <div className="drawer-preview-copy"><h2>{reel.hook ? `“${reel.hook}”` : reel.caption ?? "Untitled Reel"}</h2><span className="drawer-meta">@{competitor.handle} · {dateLabel(reel.publishedAt)} · {reel.durationSec ? `${reel.durationSec}s` : "—"}</span><a className="external-link" href={reel.videoUrl} target="_blank" rel="noopener noreferrer">instagram.com/reel/… <ExternalLink size={13} /></a><div className="drawer-score"><ScoreRing score={reel.performanceScore} large /><span>Performance {reel.performanceScore}</span></div></div>
           </section>
 

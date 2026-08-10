@@ -2,6 +2,7 @@
 
 import type { CSSProperties, ReactNode } from "react";
 import { Check, CircleAlert, FileX, Info, Play } from "lucide-react";
+import { useState } from "react";
 import { formatCompactMetric } from "../../lib/metrics";
 
 export function initials(name: string): string {
@@ -121,8 +122,13 @@ export function Toast({ message, detail, action, onAction, onClose }: { message:
   );
 }
 
-export function PlaceholderThumbnail({ tone = "stone", label = "Reel thumbnail unavailable" }: { tone?: string; label?: string }) {
+export function PlaceholderThumbnail({ tone = "stone", label = "Reel thumbnail unavailable", imageUrl }: { tone?: string; label?: string; imageUrl?: string | null }) {
+  const [imageFailed, setImageFailed] = useState(false);
   const style = { "--thumbnail-tone": `var(--thumbnail-${tone})` } as CSSProperties;
+  if (imageUrl && !imageFailed) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img className="thumbnail-image" src={imageUrl} alt={label} onError={() => setImageFailed(true)} />;
+  }
   return (
     <div className="thumbnail-placeholder" style={style} role="img" aria-label={label}>
       <span className="thumbnail-grid" aria-hidden="true" />

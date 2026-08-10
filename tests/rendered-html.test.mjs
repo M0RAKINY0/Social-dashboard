@@ -5,7 +5,7 @@ import test from "node:test";
 const root = new URL("../", import.meta.url);
 
 test("ships the ReelRadar entry shell and requested competitor routes", async () => {
-  const [page, app, fixtures, topBar, design, packageJson, route, socialcrawl] = await Promise.all([
+  const [page, app, fixtures, topBar, design, packageJson, route, socialcrawl, reelCard, reelDrawer] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/reelradar-app.tsx", root), "utf8"),
     readFile(new URL("lib/fixtures.ts", root), "utf8"),
@@ -14,6 +14,8 @@ test("ships the ReelRadar entry shell and requested competitor routes", async ()
     readFile(new URL("package.json", root), "utf8"),
     readFile(new URL("app/api/socialcrawl/route.ts", root), "utf8"),
     readFile(new URL("lib/socialcrawl.ts", root), "utf8"),
+    readFile(new URL("app/components/reel-card.tsx", root), "utf8"),
+    readFile(new URL("app/components/reel-drawer.tsx", root), "utf8"),
   ]);
 
   assert.match(page, /<ReelRadarApp initialView="analysis" initialHandle="raycfu" \/>/);
@@ -27,6 +29,8 @@ test("ships the ReelRadar entry shell and requested competitor routes", async ()
   assert.match(packageJson, /"lucide-react"/);
   assert.match(route, /getCompetitorDataset/);
   assert.match(socialcrawl, /SOCIALCRAWL_API_KEY/);
+  assert.match(reelCard, /reel\.thumbnailUrl/);
+  assert.match(reelDrawer, /reel\.thumbnailUrl/);
 });
 
 test("does not ship the starter preview metadata or placeholder dependency", async () => {

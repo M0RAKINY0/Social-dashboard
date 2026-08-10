@@ -24,7 +24,7 @@ export function ReelCard({ reel, selected, onAnalyze }: { reel: Reel; selected: 
       <div className="reel-media">
         {videoAvailable ? (
           <video className="reel-video" src={reel.mediaUrl} muted loop playsInline onMouseEnter={(event) => void event.currentTarget.play()} onMouseLeave={(event) => { event.currentTarget.pause(); event.currentTarget.currentTime = 0; }} />
-        ) : <PlaceholderThumbnail tone={reel.thumbnailTone} label={reel.hook ?? reel.caption ?? "Reel thumbnail unavailable"} />}
+        ) : <PlaceholderThumbnail imageUrl={reel.thumbnailUrl} tone={reel.thumbnailTone} label={reel.hook ?? reel.caption ?? "Reel thumbnail unavailable"} />}
         <PerformanceBadge rank={reel.rank} />
         <span className="duration-chip">{reel.durationSec ? `0:${String(reel.durationSec).padStart(2, "0")}` : "—"}</span>
         <span className="media-score"><ScoreRing score={reel.performanceScore} /></span>
