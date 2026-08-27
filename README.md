@@ -72,6 +72,19 @@ Copy-Item .env.example .env.local
 | `npm test` | Run typechecking and the normalization, metrics, and rendered-HTML tests. |
 | `npm run db:generate` | Generate Drizzle artifacts when database work is introduced. |
 
+## Continuous integration
+
+GitHub Actions runs the same validation on pushes to `main` and `codex/**`, and on pull requests into `main`. The workflow uses Node.js 22, installs from `package-lock.json`, and runs typecheck, lint, tests, and the production build.
+
+Run the full local check with:
+
+```bash
+npm run typecheck
+npm run lint
+npm test
+npm run build
+```
+
 ## Data flow
 
 1. The client requests `/api/socialcrawl?handle=raycfu`.
