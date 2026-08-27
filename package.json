@@ -15,7 +15,6 @@
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
-    "@rolldown/binding-win32-x64-msvc": "^1.0.1",
     "drizzle-orm": "0.45.2",
     "lucide-react": "^1.31.0",
     "next": "16.2.6",
@@ -40,6 +39,9 @@
     "vinext": "0.0.50",
     "vite": "8.0.13",
     "wrangler": "4.92.0"
+  },
+  "optionalDependencies": {
+    "@rolldown/binding-win32-x64-msvc": "^1.0.1"
   },
   "type": "module"
 }
